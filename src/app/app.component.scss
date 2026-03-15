@@ -11,8 +11,9 @@
 }
 
 .mobile-only {
-  @media (min-width: 601px) {
-    display: none !important;
+  display: none !important; /* Default to hidden */
+  @media (max-width: 600px) {
+    display: flex !important; /* Only show on mobile */
   }
 }
 
@@ -20,11 +21,15 @@
   display: flex;
   justify-content: space-between;
   padding: 0 40px;
-  background-color: #1D1D1F; /* Dark Apple Toolbar */
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8); /* Glass effect on light */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #1D1D1F;
   height: 64px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   z-index: 1001;
+  position: sticky;
+  top: 0;
 
   .brand {
     display: flex;
@@ -36,6 +41,7 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       font-size: 1.25rem;
+      color: #1D1D1F;
     }
 
     mat-icon {
@@ -48,14 +54,20 @@
     gap: 16px;
     
     a {
-      color: #FFFFFF; /* Pure white for visibility */
+      color: #666666; /* Visible gray on white background */
       font-size: 14px;
       font-weight: 500;
-      opacity: 0.8;
       transition: all 0.2s ease;
+      text-decoration: none;
 
-      &:hover { opacity: 1; }
-      &.active-link { opacity: 1; font-weight: 600; }
+      &:hover { color: #000000; }
+      &.active-link { 
+        color: #FFFFFF; 
+        background-color: #000000; 
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-weight: 600; 
+      }
     }
   }
 }
@@ -145,83 +157,132 @@
 }
 
 .app-footer {
-  background-color: #1D1D1F;
-  color: #F5F5F7;
-  padding: 64px 40px;
-  margin-top: 0;
+  background-color: #FBFBFB; /* Apple Footer Color */
+  color: #424245;
+  padding: 48px 40px;
+  border-top: 1px solid #D2D2D7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  @media (max-width: 600px) {
-    padding-bottom: 120px; /* Extra space to stay clear of mobile bar */
-  }
-
-  .footer-content {
-    max-width: 1100px;
+  .footer-container {
+    max-width: 1000px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.5fr;
-    gap: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
-    .brand-section {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      
-      mat-icon {
-        font-size: 40px;
-        width: 40px;
-        height: 40px;
-        color: var(--primary, #FF0055);
-      }
-
-      h3 { margin: 0; font-size: 20px; font-weight: 600; color: white; }
-      p { margin: 0; font-size: 14px; color: #86868B; }
-    }
-
-    .links-section {
+    .footer-top {
       display: flex;
       flex-direction: column;
       gap: 12px;
 
-      a {
-        color: #A1A1A6;
-        text-decoration: none;
-        font-size: 14px;
+      .brand-section {
         display: flex;
         align-items: center;
-        gap: 12px;
-        transition: color 0.2s ease;
+        gap: 8px;
+        color: #1D1D1F;
+        
+        mat-icon {
+          font-size: 24px;
+          color: #FF0055;
+        }
 
-        &:hover { color: white; }
-        mat-icon { font-size: 20px; width: 20px; height: 20px; }
+        .brand-name {
+          font-weight: 700;
+          font-size: 1.1rem;
+          letter-spacing: -0.01em;
+        }
+      }
+
+      .tagline {
+        margin: 0;
+        font-size: 13px;
+        color: #86868B;
+        max-width: 400px;
+        line-height: 1.5;
       }
     }
 
-    .author-section {
+    .footer-divider {
+      height: 1px;
+      background-color: #D2D2D7;
+      width: 100%;
+    }
+
+    .footer-bottom {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-      text-align: right;
+      flex-wrap: wrap;
+      gap: 24px;
 
-      .author-info {
-        p { margin: 0; font-size: 12px; color: #A1A1A6; text-transform: uppercase; letter-spacing: 0.1em; }
-        h3 { margin: 4px 0 0 0; font-size: 18px; font-weight: 700; color: #FFFFFF; }
-      }
+      .author-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
 
-      .avatar-ring {
-        width: 56px;
-        height: 56px;
-        padding: 3px;
-        background: linear-gradient(135deg, #FF0055, #FF5E89);
-        border-radius: 50%;
-        
-        img {
-          width: 100%;
-          height: 100%;
+        .avatar-ring {
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
-          border: 3px solid #1D1D1F;
+          overflow: hidden;
+          background: #000;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .author-info {
+          h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1D1D1F;
+          }
+          p {
+            margin: 0;
+            font-size: 12px;
+            color: #86868B;
+          }
         }
       }
+
+      .links-section {
+        display: flex;
+        gap: 24px;
+
+        a {
+          color: #424245;
+          text-decoration: none;
+          font-size: 12px;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #0066CC;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .copyright-section {
+        p {
+          margin: 0;
+          font-size: 12px;
+          color: #86868B;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px 20px;
+    
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
     }
   }
 }

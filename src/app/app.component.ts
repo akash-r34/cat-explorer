@@ -48,26 +48,36 @@ import { MatBadgeModule } from '@angular/material/badge';
     </nav>
 
     <footer class="app-footer desktop-only">
-      <div class="footer-content">
-        <div class="brand-section">
-          <mat-icon>pets</mat-icon>
-          <div>
-            <h3>Cat Explorer</h3>
-            <p>Angular 21 + Material Design</p>
+      <div class="footer-container">
+        <div class="footer-top">
+          <div class="brand-section">
+            <mat-icon>pets</mat-icon>
+            <span class="brand-name">CatExplorer</span>
           </div>
+          <p class="tagline">Providing advanced insights into your cat collection with cinematic precision.</p>
         </div>
-        <div class="links-section">
-          <a href="mailto:hello@example.com"><mat-icon>email</mat-icon> hello@example.com</a>
-          <a href="#"><mat-icon>code</mat-icon> github.com/user</a>
-          <a href="#"><mat-icon>work</mat-icon> linkedin.com/in/user</a>
-        </div>
-        <div class="author-section">
-          <div class="avatar-ring">
-            <img src="https://ui-avatars.com/api/?name=User&background=FF0055&color=fff&rounded=true&bold=true" alt="Author">
+        
+        <div class="footer-divider"></div>
+        
+        <div class="footer-bottom">
+          <div class="author-section">
+            <div class="avatar-ring">
+              <img src="https://ui-avatars.com/api/?name=Akash+R&background=000&color=fff&rounded=true&bold=true" alt="Akash R">
+            </div>
+            <div class="author-info">
+              <h3>Akash R</h3>
+              <p>Advanced Coding Agent Co-Pilot</p>
+            </div>
           </div>
-          <div>
-            <h3>Your Name Here</h3>
-            <p>© 2026 - Clean Apple UI</p>
+          
+          <div class="links-section">
+            <a href="mailto:hello@example.com">Email</a>
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+          </div>
+          
+          <div class="copyright-section">
+            <p>© 2026 CatExplorer. Designed by Akash R in collaboration with DeepMind.</p>
           </div>
         </div>
       </div>
