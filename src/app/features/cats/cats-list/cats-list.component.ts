@@ -32,6 +32,9 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
       <div class="list-header explorer-top">
         <app-page-header title="Cat Explorer" subtitle="Manage and search through your entire cat collection." />
         <div class="header-actions">
+          <button mat-flat-button color="primary" class="add-btn desktop-only" routerLink="/cats/new">
+            <mat-icon>add</mat-icon> Add Cat
+          </button>
           <button mat-stroked-button color="primary" class="export-btn" (click)="exportCsv()" [disabled]="cats().length === 0">
             <mat-icon>download</mat-icon> Export CSV
           </button>
@@ -99,9 +102,7 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
         </div>
       }
       
-      <button mat-fab class="floating-fab" color="primary" routerLink="/cats/new" aria-label="Add new cat">
-        <mat-icon>add</mat-icon>
-      </button>
+      <!-- Floating FAB removed in favor of mobile tab bar + -->
     </div>
   `,
   styleUrl: './cats-list.component.scss'
