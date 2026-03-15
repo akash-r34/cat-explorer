@@ -27,13 +27,6 @@ Manage your entire collection with our high-performance explorer interface.
 View comprehensive profiles and diagnostic history for every cat.
 ![Details](docs/assets/details.png)
 
-### Functional Walkthrough
-See the application's core flows in action (Animated WebP):
-![Walkthrough](docs/assets/walkthrough.webp)
-
-> [!NOTE]
-> The walkthrough is provided in **Animated WebP** format, which is supported by most modern browsers and GitHub. If you strictly require a `.gif` or `.mp4` for your specific environment, you can use an online converter (e.g., CloudConvert or ezgif) to convert the file located at `docs/assets/walkthrough.webp`.
-
 
 ## 🌐 Deployment
 
