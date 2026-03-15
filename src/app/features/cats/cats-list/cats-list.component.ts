@@ -11,8 +11,8 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { saveAs } from 'file-saver';
 import { CatService } from '../../../core/services/cat.service';
+
 import { Cat } from '../../../core/models/cat.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
@@ -208,8 +208,21 @@ export class CatsListComponent implements OnInit {
 
     const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
     
-    saveAs(blob, 'cat_explorer_export.csv');
+    // Robust manual download trigger for Mac/Safari/Chrome
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'cat_explorer_export.csv');
+    
+    // Append to DOM to ensure click works in all browsers
+    document.body.appendChild(link);
+    link.click();
+    
+    // Cleanup
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   }
 }
+
 
