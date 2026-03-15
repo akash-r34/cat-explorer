@@ -2,14 +2,25 @@
   padding: 24px;
   max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 600px) {
+    padding: 16px;
+  }
 }
 
 .form-card {
-  padding: 24px 16px;
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 600px) {
+    padding: 24px 16px;
+  }
   
   .full-width {
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
   
   .form-actions {
@@ -17,5 +28,14 @@
     justify-content: flex-end;
     gap: 16px;
     margin-top: 32px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+        margin: 0 !important;
+      }
+    }
   }
 }

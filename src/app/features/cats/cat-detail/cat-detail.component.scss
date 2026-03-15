@@ -2,13 +2,20 @@
   padding: 24px;
   max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 600px) {
+    padding: 16px;
+  }
 }
 
 .detail-card {
   padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   
   .cat-avatar {
-    background-color: var(--cat-accent, #e87f3a);
+    background: linear-gradient(135deg, #FF0055, #FF5E89);
     color: white;
     display: flex;
     align-items: center;
@@ -18,32 +25,28 @@
   .description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: var(--cat-text-primary, #1a1a2e);
-    margin: 16px 0;
-  }
-  
-  .breed-info {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--cat-border, #e2ddd6);
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    
-    .breed-link {
-      color: var(--cat-primary, #1a6b8a);
-      text-decoration: none;
-      font-weight: 500;
-      
-      &:hover {
-        text-decoration: underline;
-      }
+    color: #48484A;
+    margin: 24px 0;
+
+    @media (max-width: 600px) {
+      font-size: 1rem;
+      margin: 20px 0;
     }
   }
   
   .actions-container {
     margin-top: 24px;
     display: flex;
-    gap: 8px;
+    gap: 12px;
+    justify-content: flex-end;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+        margin: 0 !important;
+      }
+    }
   }
 }
