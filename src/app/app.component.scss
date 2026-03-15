@@ -46,17 +46,27 @@
 
   .nav-links {
     display: flex;
-    gap: 24px;
+    gap: 32px;
     
     a {
-      color: #E5E5EA;
+      color: #E5E5EA !important; 
+      text-decoration: none !important;
       font-size: 14px;
       font-weight: 600;
-      transition: all 0.2s ease;
-      letter-spacing: 0.01em;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 12px;
 
-      &:hover { color: #FFFFFF; }
-      &.active-link { color: #FFFFFF; font-weight: 700; }
+      &:hover { 
+        color: #FFFFFF !important; 
+        transform: translateY(-1px);
+      }
+      &.active-link { 
+        color: #FFFFFF !important; 
+        font-weight: 800;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
     }
   }
 }
