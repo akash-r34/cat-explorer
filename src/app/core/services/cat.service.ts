@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Cat, CreateCatPayload, UpdateCatPayload } from '../models/cat.model';
 import { API_BASE_URL } from '../constants/api.constants';
@@ -27,13 +27,15 @@ export class CatService {
   }
 
   create(payload: CreateCatPayload): Observable<Cat> {
-    return this.http.post<ApiResponse<Cat>>(`${this.baseUrl}/create`, payload).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<ApiResponse<Cat>>(`${this.baseUrl}/create`, payload, { headers }).pipe(
       map(res => res.data)
     );
   }
 
   update(id: string, payload: UpdateCatPayload): Observable<Cat> {
-    return this.http.put<ApiResponse<Cat>>(`${this.baseUrl}/update?id=${id}`, payload).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<ApiResponse<Cat>>(`${this.baseUrl}/update?id=${id}`, payload, { headers }).pipe(
       map(res => res.data)
     );
   }
