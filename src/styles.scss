@@ -1,1 +1,133 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Apply a light theme base
+$cat-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$rose-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  typography: (
+    brand-family: 'Inter, sans-serif',
+    plain-family: 'Inter, sans-serif',
+  ),
+  density: (scale: -1),
+));
+
+:root {
+  @include mat.all-component-themes($cat-theme);
+
+  // Clean Apple Aesthetic Tokens
+  --cat-bg: #F5F5F7;               // Apple off-white background
+  --cat-surface: #FFFFFF;          // Crisp white cards
+  --cat-border: rgba(0, 0, 0, 0.06); 
+  --cat-primary: #FF0055;          // Vibrant hot pink/red from reference
+  --cat-primary-hover: #E0004D;
+  --cat-text-primary: #1D1D1F;     // Apple dark text
+  --cat-text-secondary: #86868B;   // Apple gray text
+  --cat-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --cat-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --cat-radius: 20px;
+  --cat-transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --cat-font-brand: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cat-bg);
+  color: var(--cat-text-primary);
+  font-family: var(--cat-font-brand);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base structural fixes for app-main */
+.app-main {
+  background: transparent !important;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, .mat-mdc-card-title {
+  font-family: var(--cat-font-brand) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  color: var(--cat-text-primary);
+}
+
+/* Clean Card Overrides */
+.mat-mdc-card {
+  background-color: var(--cat-surface) !important;
+  color: var(--cat-text-primary) !important;
+  border-radius: var(--cat-radius) !important;
+  border: 1px solid var(--cat-border) !important;
+  box-shadow: var(--cat-shadow) !important;
+  transition: transform var(--cat-transition), box-shadow var(--cat-transition) !important;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--cat-shadow-hover) !important;
+  }
+}
+
+/* Form Overrides */
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: #F5F5F7;
+  --mdc-outlined-text-field-outline-color: var(--cat-border);
+  --mdc-outlined-text-field-focus-outline-color: var(--cat-primary);
+  --mdc-outlined-text-field-hover-outline-color: rgba(0,0,0,0.2);
+  --mdc-theme-text-primary-on-background: var(--cat-text-primary);
+}
+
+.mdc-text-field--outlined .mdc-notched-outline {
+  border-radius: 12px !important;
+  .mdc-notched-outline__leading, .mdc-notched-outline__trailing, .mdc-notched-outline__notch {
+    border-color: var(--cat-border) !important;
+  }
+}
+
+/* Button Overrides - Solid vivid colors with soft shadows */
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-outlined-button, .mat-mdc-fab {
+  border-radius: 12px !important; /* Slightly sharper buttons for clean look */
+  font-family: var(--cat-font-brand) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0px;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.mat-mdc-unelevated-button.mat-primary, .mat-mdc-fab.mat-primary {
+  background-color: var(--cat-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(255, 0, 85, 0.25) !important;
+  
+  &:hover {
+    background-color: var(--cat-primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 0, 85, 0.35) !important;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.mat-mdc-fab {
+  border-radius: 50% !important; /* Keep FAB completely round */
+}
+
+/* Toolbar Override - Clean White Header */
+.mat-toolbar {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--cat-border) !important;
+  color: var(--cat-text-primary) !important;
+}
+
+/* Fix text secondary colors */
+.mat-mdc-card-subtitle, .secondary-text {
+  color: var(--cat-text-secondary) !important;
+}

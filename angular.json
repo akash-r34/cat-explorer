@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -64,7 +65,8 @@
               "buildTarget": "cat-explorer:build:production"
             },
             "development": {
-              "buildTarget": "cat-explorer:build:development"
+              "buildTarget": "cat-explorer:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

@@ -1,0 +1,10 @@
+.dialog-title {
+  font-family: var(--cat-font-brand, 'DM Serif Display', serif);
+  color: var(--cat-text-primary, #1a1a2e);
+}
+.dialog-content {
+  color: var(--cat-text-secondary, #5a5a7a);
+}
+.dialog-actions {
+  padding-bottom: 8px;
+}

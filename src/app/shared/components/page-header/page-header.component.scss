@@ -1,0 +1,20 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  
+  h1 {
+    margin: 0;
+    font-family: var(--cat-font-brand, 'DM Serif Display', serif);
+    font-size: 2rem;
+    color: var(--cat-primary, #1a6b8a);
+  }
+  
+  .subtitle {
+    margin: 0;
+    color: var(--cat-text-secondary, #5a5a7a);
+    font-size: 1.1rem;
+    margin-left: auto;
+  }
+}

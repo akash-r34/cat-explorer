@@ -1,0 +1,33 @@
+.app-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  background-color: var(--cat-primary, #1a6b8a);
+  color: white;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    
+    .brand-name {
+      font-family: var(--cat-font-brand, 'DM Serif Display', serif);
+      font-size: 1.5rem;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    
+    .active-link {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.app-main {
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
