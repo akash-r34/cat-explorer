@@ -3,12 +3,7 @@
   publish = "dist/cat-explorer/browser"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://gps6cdg7h9.execute-api.eu-central-1.amazonaws.com/prod/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
