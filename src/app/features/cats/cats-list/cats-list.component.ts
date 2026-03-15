@@ -184,13 +184,15 @@ export class CatsListComponent implements OnInit {
   readonly youngestCat = computed(() => {
     const cats = this.cats();
     if (cats.length === 0) return null;
-    return cats.reduce((youngest, cat) => (cat.info.age < youngest.info.age ? cat : youngest), cats[0]);
+    return cats.reduce((youngest, cat) => 
+      (Number(cat.info.age) < Number(youngest.info.age) ? cat : youngest), cats[0]);
   });
 
   readonly oldestCat = computed(() => {
     const cats = this.cats();
     if (cats.length === 0) return null;
-    return cats.reduce((oldest, cat) => (cat.info.age > oldest.info.age ? cat : oldest), cats[0]);
+    return cats.reduce((oldest, cat) => 
+      (Number(cat.info.age) > Number(oldest.info.age) ? cat : oldest), cats[0]);
   });
 
   ngOnInit(): void {
