@@ -26,14 +26,57 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
   ],
   template: `
     <div class="page-container">
-      <app-page-header title="Cats" subtitle="Manage and explore your cats" />
+      <div class="dashboard-header">
+        <app-page-header title="Dashboard" subtitle="Welcome back! Here's your cat collection overview." />
+        <div class="header-actions">
+          <button mat-stroked-button color="primary" class="export-btn" (click)="exportCsv()" [disabled]="cats().length === 0">
+            <mat-icon>download</mat-icon> Export CSV
+          </button>
+        </div>
+      </div>
 
-      <div class="search-bar">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Search Cats</mat-label>
-          <input matInput (input)="onSearch($event)" placeholder="Search by name..." />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+      <!-- Dashboard Stats Cards -->
+      @if (!isLoading() && !error() && !isEmpty()) {
+        <div class="stats-grid">
+          <mat-card class="stat-card">
+            <div class="stat-icon-wrapper total"><mat-icon>pets</mat-icon></div>
+            <div class="stat-content">
+              <h3>{{ totalCats() }}</h3>
+              <p>Total Cats</p>
+            </div>
+          </mat-card>
+          <mat-card class="stat-card">
+            <div class="stat-icon-wrapper age"><mat-icon>cake</mat-icon></div>
+            <div class="stat-content">
+              <h3>{{ averageAge() }}y</h3>
+              <p>Average Age</p>
+            </div>
+          </mat-card>
+          <mat-card class="stat-card">
+            <div class="stat-icon-wrapper young"><mat-icon>child_care</mat-icon></div>
+            <div class="stat-content">
+              <h3>{{ youngestCat()?.info?.name || 'N/A' }}</h3>
+              <p>Youngest · {{ youngestCat()?.info?.age || 0 }}y</p>
+            </div>
+          </mat-card>
+          <mat-card class="stat-card">
+            <div class="stat-icon-wrapper old"><mat-icon>elderly</mat-icon></div>
+            <div class="stat-content">
+              <h3>{{ oldestCat()?.info?.name || 'N/A' }}</h3>
+              <p>Oldest · {{ oldestCat()?.info?.age || 0 }}y</p>
+            </div>
+          </mat-card>
+        </div>
+      }
+
+      <div class="list-header">
+        <h2>Recent Cats</h2>
+        <div class="search-bar">
+          <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput (input)="onSearch($event)" placeholder="Search cats..." />
+          </mat-form-field>
+        </div>
       </div>
       
       @if (isLoading()) {
@@ -43,23 +86,32 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
       } @else if (isEmpty()) {
         <app-empty-state icon="pets" title="No cats yet" message="Add your first cat to get started." actionLabel="Add Cat" actionRoute="/cats/new" />
       } @else {
-        <div class="cat-grid">
+        <div class="sleek-list-container">
           @for (cat of filteredCats(); track cat.id) {
-            <mat-card class="cat-card" (click)="navigateTo(cat.id)">
-              <mat-card-header>
-                <div mat-card-avatar class="cat-avatar"><mat-icon>pets</mat-icon></div>
-                <mat-card-title>{{ cat.info.name }}</mat-card-title>
-                <mat-card-subtitle>Age: {{ cat.info.age | ageLabel }}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-actions align="end">
-                <button mat-icon-button color="warn" aria-label="Delete cat"
+            <div class="sleek-list-item" (click)="navigateTo(cat.id)">
+              <div class="item-left">
+                <div class="avatar" [attr.data-letter]="cat.info.name.charAt(0) | uppercase">
+                  {{ cat.info.name.charAt(0) | uppercase }}
+                </div>
+                <div class="item-info">
+                  <span class="name">{{ cat.info.name }}</span>
+                  <span class="desc">{{ cat.info.description || 'Awesome cat' }}</span>
+                </div>
+              </div>
+              <div class="item-right">
+                <span class="age-pill">{{ cat.info.age }}y</span>
+                <button mat-icon-button color="warn" class="delete-btn" aria-label="Delete cat"
                   (click)="$event.stopPropagation(); openDeleteConfirm(cat)">
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon>delete_outline</mat-icon>
                 </button>
-              </mat-card-actions>
-            </mat-card>
+                <mat-icon class="chevron">chevron_right</mat-icon>
+              </div>
+            </div>
           } @empty {
-            <app-empty-state icon="search_off" title="No matches" message="Try a different search term." />
+            <div class="no-results-list">
+              <mat-icon>search_off</mat-icon>
+              <p>No matches found for "{{ searchQuery() }}"</p>
+            </div>
           }
         </div>
       }
@@ -90,6 +142,28 @@ export class CatsListComponent implements OnInit {
   });
 
   readonly isEmpty = computed(() => !this.isLoading() && this.cats().length === 0);
+
+  // Dashboard Stats Computed Signals
+  readonly totalCats = computed(() => this.cats().length);
+  
+  readonly averageAge = computed(() => {
+    const total = this.cats().length;
+    if (total === 0) return 0;
+    const sum = this.cats().reduce((acc, cat) => acc + (Number(cat.info.age) || 0), 0);
+    return Number((sum / total).toFixed(1));
+  });
+
+  readonly youngestCat = computed(() => {
+    const cats = this.cats();
+    if (cats.length === 0) return null;
+    return cats.reduce((youngest, cat) => (cat.info.age < youngest.info.age ? cat : youngest), cats[0]);
+  });
+
+  readonly oldestCat = computed(() => {
+    const cats = this.cats();
+    if (cats.length === 0) return null;
+    return cats.reduce((oldest, cat) => (cat.info.age > oldest.info.age ? cat : oldest), cats[0]);
+  });
 
   ngOnInit(): void {
     this.loadCats();
@@ -144,5 +218,31 @@ export class CatsListComponent implements OnInit {
         this.snackBar.open(msg, 'Close', { duration: 5000 });
       }
     });
+  }
+
+  exportCsv(): void {
+    const cats = this.filteredCats();
+    if (!cats.length) return;
+
+    const headers = ['ID', 'Name', 'Age', 'Description'];
+    const rows = cats.map(cat => [
+      cat.id,
+      `"${cat.info.name.replace(/"/g, '""')}"`,
+      cat.info.age,
+      `"${(cat.info.description || '').replace(/"/g, '""')}"`
+    ]);
+
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create download link
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'cat_explorer_export.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

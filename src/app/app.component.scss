@@ -1,8 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .app-toolbar {
   display: flex;
   justify-content: space-between;
   padding: 0 24px;
-  background-color: var(--cat-primary, #1a6b8a);
+  background-color: var(--cat-primary, #FF0055);
   color: white;
 
   .brand {
@@ -12,7 +18,8 @@
     cursor: pointer;
     
     .brand-name {
-      font-family: var(--cat-font-brand, 'DM Serif Display', serif);
+      font-weight: 700;
+      letter-spacing: -0.02em;
       font-size: 1.5rem;
     }
   }
@@ -28,6 +35,94 @@
 }
 
 .app-main {
-  height: calc(100vh - 64px);
-  overflow-y: auto;
+  flex: 1;
+}
+
+.app-footer {
+  background-color: #1D1D1F;
+  color: #F5F5F7;
+  padding: 48px 24px;
+  margin-top: 48px;
+
+  .footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+
+    .brand-section, .author-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      p {
+        margin: 4px 0 0 0;
+        font-size: 13px;
+        color: #86868B;
+      }
+
+      mat-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        color: var(--primary, #FF0055);
+      }
+    }
+
+    .links-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      a {
+        color: #F5F5F7;
+        text-decoration: none;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--primary, #FF0055);
+        }
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: #86868B;
+        }
+      }
+    }
+
+    .author-section {
+      .avatar-ring {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        padding: 2px;
+        background: linear-gradient(135deg, #FF0055, #FF5E89);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          border: 2px solid #1D1D1F;
+        }
+      }
+    }
+  }
 }
