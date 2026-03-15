@@ -157,6 +157,70 @@
   }
 }
 
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes slideUp {
+  0% { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  opacity: 0;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.skeleton-item {
+  pointer-events: none;
+  
+  .skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f0f0f2;
+    background-image: linear-gradient(90deg, #f0f0f2 0px, #f9f9fa 40px, #f0f0f2 80px);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
+  .skeleton-text {
+    height: 12px;
+    border-radius: 6px;
+    background: #f0f0f2;
+    background-image: linear-gradient(90deg, #f0f0f2 0px, #f9f9fa 40px, #f0f0f2 80px);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    
+    &.skeleton-title {
+      width: 120px;
+      margin-bottom: 8px;
+    }
+    
+    &.skeleton-desc {
+      width: 180px;
+      height: 10px;
+    }
+  }
+
+  .skeleton-pill {
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+    background: #f0f0f2;
+    background-image: linear-gradient(90deg, #f0f0f2 0px, #f9f9fa 40px, #f0f0f2 80px);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+  }
+}
+
 .sleek-list-container {
   background: #FFFFFF;
   border-radius: 16px;
@@ -172,7 +236,7 @@
   padding: 16px 24px;
   cursor: pointer;
   transition: background-color 0.15s ease;
-  border-bottom: 1px solid #F5F5F7;
+  border-bottom: 1px solid #E5E5EA; /* Darkened border for contrast */
 
   &:last-child {
     border-bottom: none;
@@ -215,8 +279,9 @@
       }
       .desc {
         font-size: 13px;
-        color: var(--text-secondary, #86868B);
+        color: #515154; /* Darkened from #86868B for better visibility */
         margin-top: 2px;
+        font-weight: 500;
       }
     }
   }
@@ -261,7 +326,7 @@
 .no-results-list {
   padding: 48px;
   text-align: center;
-  color: #86868B;
+  color: #515154; /* Darkened from #86868B for better visibility */
   display: flex;
   flex-direction: column;
   align-items: center;

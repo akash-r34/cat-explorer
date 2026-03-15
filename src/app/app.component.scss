@@ -62,12 +62,13 @@
         font-size: 16px;
         font-weight: 600;
         letter-spacing: -0.01em;
+        color: #FFFFFF; /* Pure white for high contrast */
       }
 
       p {
         margin: 4px 0 0 0;
         font-size: 13px;
-        color: #86868B;
+        color: #A1A1A6; /* Slightly brighter than #86868B for visibility */
       }
 
       mat-icon {
@@ -84,13 +85,14 @@
       gap: 12px;
 
       a {
-        color: #F5F5F7;
+        color: #E5E5EA; /* Brighter for better contrast */
         text-decoration: none;
         font-size: 14px;
         display: flex;
         align-items: center;
         gap: 8px;
         transition: color 0.2s ease;
+        font-weight: 500;
 
         &:hover {
           color: var(--primary, #FF0055);
@@ -100,7 +102,7 @@
           font-size: 18px;
           width: 18px;
           height: 18px;
-          color: #86868B;
+          color: #A1A1A6; /* Brighter than #86868B */
         }
       }
     }

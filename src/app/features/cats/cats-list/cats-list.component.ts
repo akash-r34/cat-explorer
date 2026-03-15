@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -8,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CatService } from '../../../core/services/cat.service';
 import { Cat } from '../../../core/models/cat.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
@@ -79,39 +82,54 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
         </div>
       </div>
       
-      @if (isLoading()) {
-        <app-loading-spinner message="Fetching cats..." />
-      } @else if (error()) {
+      @if (error()) {
         <app-empty-state icon="error_outline" title="Error" [message]="error() || ''" actionLabel="Retry" (click)="loadCats()" />
       } @else if (isEmpty()) {
         <app-empty-state icon="pets" title="No cats yet" message="Add your first cat to get started." actionLabel="Add Cat" actionRoute="/cats/new" />
       } @else {
         <div class="sleek-list-container">
-          @for (cat of filteredCats(); track cat.id) {
-            <div class="sleek-list-item" (click)="navigateTo(cat.id)">
-              <div class="item-left">
-                <div class="avatar" [attr.data-letter]="cat.info.name.charAt(0) | uppercase">
-                  {{ cat.info.name.charAt(0) | uppercase }}
+          @if (isLoading()) {
+            @for (dummy of skeletonArray; track dummy) {
+              <div class="sleek-list-item skeleton-item">
+                <div class="item-left">
+                  <div class="skeleton-avatar"></div>
+                  <div class="item-info">
+                    <div class="skeleton-text skeleton-title"></div>
+                    <div class="skeleton-text skeleton-desc"></div>
+                  </div>
                 </div>
-                <div class="item-info">
-                  <span class="name">{{ cat.info.name }}</span>
-                  <span class="desc">{{ cat.info.description || 'Awesome cat' }}</span>
+                <div class="item-right">
+                  <div class="skeleton-pill"></div>
                 </div>
               </div>
-              <div class="item-right">
-                <span class="age-pill">{{ cat.info.age }}y</span>
-                <button mat-icon-button color="warn" class="delete-btn" aria-label="Delete cat"
-                  (click)="$event.stopPropagation(); openDeleteConfirm(cat)">
-                  <mat-icon>delete_outline</mat-icon>
-                </button>
-                <mat-icon class="chevron">chevron_right</mat-icon>
+            }
+          } @else {
+            @for (cat of filteredCats(); track cat.id; let i = $index) {
+              <div class="sleek-list-item animate-in" [style.animation-delay]="(i * 0.05) + 's'" (click)="navigateTo(cat.id)">
+                <div class="item-left">
+                  <div class="avatar" [attr.data-letter]="cat.info.name.charAt(0) | uppercase">
+                    {{ cat.info.name.charAt(0) | uppercase }}
+                  </div>
+                  <div class="item-info">
+                    <span class="name">{{ cat.info.name }}</span>
+                    <span class="desc">{{ cat.info.description || 'Awesome cat' }}</span>
+                  </div>
+                </div>
+                <div class="item-right">
+                  <span class="age-pill">{{ cat.info.age }}y</span>
+                  <button mat-icon-button color="warn" class="delete-btn" aria-label="Delete cat"
+                    (click)="$event.stopPropagation(); openDeleteConfirm(cat)">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                  <mat-icon class="chevron">chevron_right</mat-icon>
+                </div>
               </div>
-            </div>
-          } @empty {
-            <div class="no-results-list">
-              <mat-icon>search_off</mat-icon>
-              <p>No matches found for "{{ searchQuery() }}"</p>
-            </div>
+            } @empty {
+              <div class="no-results-list">
+                <mat-icon>search_off</mat-icon>
+                <p>No matches found using your exact specified search term.</p>
+              </div>
+            }
           }
         </div>
       }
@@ -132,16 +150,26 @@ export class CatsListComponent implements OnInit {
   readonly cats = signal<Cat[]>([]);
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
-  readonly searchQuery = signal('');
+
+  // Search Logic with RxJS -> Signal interop
+  private readonly searchSubject = new Subject<string>();
+  readonly debouncedQuery = toSignal(
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ),
+    { initialValue: '' }
+  );
 
   readonly filteredCats = computed(() => {
-    const query = this.searchQuery().toLowerCase();
+    const query = this.debouncedQuery().toLowerCase();
     return query
       ? this.cats().filter((c) => c.info.name.toLowerCase().includes(query))
       : this.cats();
   });
 
   readonly isEmpty = computed(() => !this.isLoading() && this.cats().length === 0);
+  readonly skeletonArray = [1, 2, 3, 4, 5]; // For 5 loading bars
 
   // Dashboard Stats Computed Signals
   readonly totalCats = computed(() => this.cats().length);
@@ -186,7 +214,7 @@ export class CatsListComponent implements OnInit {
 
   onSearch(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.searchQuery.set(target.value);
+    this.searchSubject.next(target.value);
   }
 
   navigateTo(id: string): void {
