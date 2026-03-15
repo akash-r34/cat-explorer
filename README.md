@@ -2,7 +2,7 @@
 
 A cinematic, high-fidelity cat management dashboard built with **Angular 21**, **Signals**, and **Zoneless change detection**. This application connects to a high-performance AWS Lambda backend to provide a seamless interface for managing feline diagnostic registries.
 
-![App Preview](file:///Users/akashr/.gemini/antigravity/brain/6d888b4c-804d-4988-9f70-c4d3ad259eea/apple_aesthetic_check_1773568840961.png)
+![App Preview](docs/assets/preview.png)
 
 ## 🚀 Key Features
 
