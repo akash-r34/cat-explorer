@@ -2,17 +2,46 @@
 
 A cinematic, high-fidelity cat management dashboard built with **Angular 21**, **Signals**, and **Zoneless change detection**. This application connects to a high-performance AWS Lambda backend to provide a seamless interface for managing feline diagnostic registries.
 
-![App Preview](docs/assets/preview.png)
+![App Preview](docs/assets/dashboard.png)
 
 ## 🚀 Key Features
 
 - **Apple-Style Clean Aesthetic**: Pristine light-themed UI with high-contrast Inter typography and vibrant hot-pink accents.
 - **Full CRUD Operations**: Create, read, update, and delete cat records with real-time feedback.
 - **Real-time Live Search**: Filter through your cat registry instantly using Angular Signals and RxJS.
+- **Interactive Dashboard**: Visualize your cat collection with dynamic charts and key performance indicators.
 - **Cinematic Transitions**: Ultra-snappy hover effects and smooth layout transitions utilizing premium cubic-bezier easing.
 - **Global Error Handling**: Integrated `MatSnackBar` notifications and confirmation dialogs for destructive actions.
 
+## 📸 App Showcase
+
+### Dashboard & Analytics
+The intelligent dashboard provides an instant overview of your feline diagnostics.
+![Dashboard](docs/assets/dashboard.png)
+
+### Cat Registry
+Manage your entire collection with our high-performance explorer interface.
+![Explorer](docs/assets/explorer.png)
+
+### In-Depth Details
+View comprehensive profiles and diagnostic history for every cat.
+![Details](docs/assets/details.png)
+
+### Functional Walkthrough
+See the application's core flows in action:
+![Walkthrough](docs/assets/walkthrough.webp)
+
+## 🌐 Deployment
+
+This application is optimized for deployment on **Netlify**. A `netlify.toml` file is included in the project root to handle:
+- Automated builds via `npm run build`
+- API proxying for production (redirecting `/api/*` to the AWS Lambda backend)
+- SPA routing (redirecting all paths to `index.html`)
+
+To deploy, simply connect your GitHub repository to Netlify and it will handle the rest!
+
 ## 🏗️ Technical Architecture
+
 
 This project strictly adheres to the latest Angular best practices:
 
