@@ -10,6 +10,7 @@ import { CatService } from '../../../core/services/cat.service';
 import { Cat } from '../../../core/models/cat.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
+import { PawLoaderComponent } from '../../../shared/components/paw-loader/paw-loader.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { AgeLabelPipe } from '../../../shared/pipes/age-label.pipe';
@@ -18,13 +19,13 @@ import { AgeLabelPipe } from '../../../shared/pipes/age-label.pipe';
   selector: 'app-cat-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, PageHeaderComponent, LoadingSpinnerComponent, EmptyStateComponent, AgeLabelPipe],
+  imports: [CommonModule, RouterLink, MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, PageHeaderComponent, LoadingSpinnerComponent, PawLoaderComponent, EmptyStateComponent, AgeLabelPipe],
   template: `
     <div class="page-container">
       <app-page-header [title]="cat()?.info?.name || 'Cat Details'" backRoute="/cats" />
 
       @if (isLoading()) {
-        <app-loading-spinner message="Loading cat details..." />
+        <app-paw-loader message="Gathering cat details..." />
       } @else if (error()) {
         <app-empty-state icon="error_outline" title="Error" [message]="error() || ''" actionLabel="Go Back" actionRoute="/cats" />
       } @else if (cat()) {
