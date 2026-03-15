@@ -43,6 +43,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         <div class="fab-mimic">
           <mat-icon>add</mat-icon>
         </div>
+        <span>Add</span>
       </a>
     </nav>
 
