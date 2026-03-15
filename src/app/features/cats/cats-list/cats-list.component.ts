@@ -29,8 +29,8 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
   ],
   template: `
     <div class="page-container">
-      <div class="dashboard-header">
-        <app-page-header title="Dashboard" subtitle="Welcome back! Here's your cat collection overview." />
+      <div class="list-header explorer-top">
+        <app-page-header title="Cat Explorer" subtitle="Manage and search through your entire cat collection." />
         <div class="header-actions">
           <button mat-stroked-button color="primary" class="export-btn" (click)="exportCsv()" [disabled]="cats().length === 0">
             <mat-icon>download</mat-icon> Export CSV
@@ -38,46 +38,11 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/compo
         </div>
       </div>
 
-      <!-- Dashboard Stats Cards -->
-      @if (!isLoading() && !error() && !isEmpty()) {
-        <div class="stats-grid">
-          <mat-card class="stat-card">
-            <div class="stat-icon-wrapper total"><mat-icon>pets</mat-icon></div>
-            <div class="stat-content">
-              <h3>{{ totalCats() }}</h3>
-              <p>Total Cats</p>
-            </div>
-          </mat-card>
-          <mat-card class="stat-card">
-            <div class="stat-icon-wrapper age"><mat-icon>cake</mat-icon></div>
-            <div class="stat-content">
-              <h3>{{ averageAge() }}y</h3>
-              <p>Average Age</p>
-            </div>
-          </mat-card>
-          <mat-card class="stat-card">
-            <div class="stat-icon-wrapper young"><mat-icon>child_care</mat-icon></div>
-            <div class="stat-content">
-              <h3>{{ youngestCat()?.info?.name || 'N/A' }}</h3>
-              <p>Youngest · {{ youngestCat()?.info?.age || 0 }}y</p>
-            </div>
-          </mat-card>
-          <mat-card class="stat-card">
-            <div class="stat-icon-wrapper old"><mat-icon>elderly</mat-icon></div>
-            <div class="stat-content">
-              <h3>{{ oldestCat()?.info?.name || 'N/A' }}</h3>
-              <p>Oldest · {{ oldestCat()?.info?.age || 0 }}y</p>
-            </div>
-          </mat-card>
-        </div>
-      }
-
-      <div class="list-header">
-        <h2>Recent Cats</h2>
+      <div class="search-filter-row">
         <div class="search-bar">
           <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
             <mat-icon matPrefix>search</mat-icon>
-            <input matInput (input)="onSearch($event)" placeholder="Search cats..." />
+            <input matInput (input)="onSearch($event)" placeholder="Search names..." />
           </mat-form-field>
         </div>
       </div>
@@ -169,31 +134,8 @@ export class CatsListComponent implements OnInit {
   });
 
   readonly isEmpty = computed(() => !this.isLoading() && this.cats().length === 0);
-  readonly skeletonArray = [1, 2, 3, 4, 5]; // For 5 loading bars
+  readonly skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  // Dashboard Stats Computed Signals
-  readonly totalCats = computed(() => this.cats().length);
-  
-  readonly averageAge = computed(() => {
-    const total = this.cats().length;
-    if (total === 0) return 0;
-    const sum = this.cats().reduce((acc, cat) => acc + (Number(cat.info.age) || 0), 0);
-    return Number((sum / total).toFixed(1));
-  });
-
-  readonly youngestCat = computed(() => {
-    const cats = this.cats();
-    if (cats.length === 0) return null;
-    return cats.reduce((youngest, cat) => 
-      (Number(cat.info.age) < Number(youngest.info.age) ? cat : youngest), cats[0]);
-  });
-
-  readonly oldestCat = computed(() => {
-    const cats = this.cats();
-    if (cats.length === 0) return null;
-    return cats.reduce((oldest, cat) => 
-      (Number(cat.info.age) > Number(oldest.info.age) ? cat : oldest), cats[0]);
-  });
 
   ngOnInit(): void {
     this.loadCats();

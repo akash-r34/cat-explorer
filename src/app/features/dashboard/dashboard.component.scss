@@ -1,0 +1,211 @@
+.page-container {
+  padding: 32px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  @media (max-width: 600px) {
+    padding: 24px 16px;
+    padding-bottom: 100px; /* Space for mobile tab bar */
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .add-btn {
+    border-radius: 20px;
+    height: 40px;
+    padding: 0 20px;
+    font-weight: 600;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+
+  .stat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+
+    .stat-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      color: white;
+
+      &.total { background: linear-gradient(135deg, #00C6FF, #0072FF); }
+      &.age { background: linear-gradient(135deg, #F5AF19, #F12711); }
+      &.young { background: linear-gradient(135deg, #11998E, #38EF7D); }
+      &.old { background: linear-gradient(135deg, #FF416C, #FF4B2B); }
+    }
+
+    .stat-content {
+      h3 { margin: 0; font-size: 24px; font-weight: 700; color: #1D1D1F; }
+      p { margin: 4px 0 0 0; font-size: 13px; color: #86868B; }
+    }
+  }
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.chart-card {
+  padding: 24px;
+  height: 100%;
+
+  .card-header {
+    margin-bottom: 24px;
+    h3 { margin: 0; font-size: 18px; font-weight: 600; }
+    p { margin: 4px 0 0 0; font-size: 13px; color: #86868B; }
+  }
+
+  .chart-container {
+    width: 100%;
+    
+    svg {
+      width: 100%;
+      height: auto;
+      
+      .bar-rect {
+        transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), y 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        &:hover { opacity: 0.8; }
+      }
+
+      .bar-label {
+        font-size: 10px;
+        fill: #86868B;
+        font-weight: 500;
+      }
+
+      .bar-value {
+        font-size: 12px;
+        fill: #1D1D1F;
+        font-weight: 600;
+        opacity: 0;
+        animation: fadeIn 0.3s forwards 0.6s;
+      }
+    }
+  }
+}
+
+.recent-section {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  }
+
+  .recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .recent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #F5F5F7;
+      transform: scale(1.01);
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #FF0055, #FF5E89);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .item-info {
+        display: flex;
+        flex-direction: column;
+        .name { font-size: 14px; font-weight: 600; color: #1D1D1F; }
+        .desc { font-size: 12px; color: #86868B; }
+      }
+    }
+
+    .chevron { color: #C7C7CC; font-size: 20px; }
+  }
+}
+
+.empty-recent {
+  padding: 40px;
+  text-align: center;
+  background: #F5F5F7;
+  border-radius: 16px;
+  color: #86868B;
+  mat-icon { font-size: 40px; width: 40px; height: 40px; opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  opacity: 0;
+  animation: slideUp 0.4s ease forwards;
+}
