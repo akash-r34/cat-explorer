@@ -17,14 +17,15 @@
 }
 
 .app-toolbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 40px;
-  background-color: #1D1D1F; /* Dark Apple Toolbar */
-  color: white;
-  height: 64px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 0 40px !important;
+  background-color: #1D1D1F !important; /* Force Dark Apple Toolbar */
+  color: #FFFFFF !important;
+  height: 64px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
   z-index: 1001;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   .brand {
     display: flex;
