@@ -14,7 +14,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatToolbarModule, MatButtonModule, MatIconModule, MatBadgeModule,
   ],
   template: `
-    <mat-toolbar class="app-toolbar desktop-only">
+    <mat-toolbar color="primary" class="app-toolbar desktop-only">
       <div class="brand" routerLink="/dashboard">
         <mat-icon>pets</mat-icon>
         <span class="brand-name">CatExplorer</span>
