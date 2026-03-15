@@ -1,15 +1,15 @@
 .page-header {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: basline;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 24px;
 
   @media (max-width: 600px) {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-    margin-bottom: 32px;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 20px;
   }
   
   h1 {
@@ -20,21 +20,19 @@
     letter-spacing: -0.01em;
 
     @media (max-width: 600px) {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
   }
   
   .subtitle {
     margin: 0;
-    color: #424245; /* Darker Apple text for better contrast */
+    color: var(--cat-text-secondary, #86868B);
     font-size: 1.1rem;
-    font-weight: 500;
-    margin-left: auto;
+    font-weight: 400;
 
     @media (max-width: 600px) {
-      margin-left: 0;
-      font-size: 1rem;
-      max-width: 280px;
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
   }
 }

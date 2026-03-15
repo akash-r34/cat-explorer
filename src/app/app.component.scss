@@ -17,13 +17,13 @@
 }
 
 .app-toolbar {
-  display: flex !important;
-  justify-content: space-between !important;
-  padding: 0 40px !important;
-  background-color: #FF0055 !important; /* Restore Vibrant Pink */
-  color: #FFFFFF !important;
-  height: 64px !important;
-  box-shadow: 0 2px 12px rgba(255, 0, 85, 0.3) !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: #1D1D1F; /* Dark Apple Toolbar */
+  color: white;
+  height: 64px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   z-index: 1001;
 
   .brand {
@@ -36,11 +36,10 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       font-size: 1.25rem;
-      color: #FFFFFF;
     }
 
     mat-icon {
-      color: #FF0055;
+      color: var(--primary, #FF0055);
     }
   }
 
@@ -49,28 +48,14 @@
     gap: 16px;
     
     a {
-      color: #FFFFFF !important; 
-      text-decoration: none !important;
-      font-size: 13px;
-      font-weight: 700;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
-      border-radius: 8px;
-      padding: 0 16px !important;
-      height: 36px !important;
-      line-height: 34px !important;
+      color: #FFFFFF; /* Pure white for visibility */
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.8;
+      transition: all 0.2s ease;
 
-      &:hover { 
-        background: rgba(255, 255, 255, 0.15) !important;
-        border-color: #FFFFFF;
-      }
-      &.active-link { 
-        background: #FFFFFF !important;
-        color: #FF0055 !important;
-        border-color: #FFFFFF;
-      }
+      &:hover { opacity: 1; }
+      &.active-link { opacity: 1; font-weight: 600; }
     }
   }
 }
@@ -160,11 +145,10 @@
 }
 
 .app-footer {
-  background: linear-gradient(135deg, #FF0055, #FF5E89); /* Restore Pink Gradient */
-  color: #FFFFFF;
+  background-color: #1D1D1F;
+  color: #F5F5F7;
   padding: 64px 40px;
   margin-top: 0;
-  box-shadow: 0 -4px 20px rgba(255, 0, 85, 0.15);
 
   @media (max-width: 600px) {
     padding-bottom: 120px; /* Extra space to stay clear of mobile bar */
@@ -199,17 +183,16 @@
       gap: 12px;
 
       a {
-        color: #FFFFFF;
+        color: #A1A1A6;
         text-decoration: none;
         font-size: 14px;
         display: flex;
         align-items: center;
         gap: 12px;
-        transition: all 0.2s ease;
-        font-weight: 500;
+        transition: color 0.2s ease;
 
-        &:hover { color: var(--primary, #FF0055); }
-        mat-icon { font-size: 20px; width: 20px; height: 20px; color: #A1A1A6; }
+        &:hover { color: white; }
+        mat-icon { font-size: 20px; width: 20px; height: 20px; }
       }
     }
 
@@ -221,7 +204,7 @@
       text-align: right;
 
       .author-info {
-        p { margin: 0; font-size: 12px; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        p { margin: 0; font-size: 12px; color: #A1A1A6; text-transform: uppercase; letter-spacing: 0.1em; }
         h3 { margin: 4px 0 0 0; font-size: 18px; font-weight: 700; color: #FFFFFF; }
       }
 
