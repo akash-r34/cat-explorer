@@ -14,8 +14,12 @@ I added a `netlify.toml` file to the root of your project to provide instruction
 - **Robust API Proxy (Node.js Serverless Function)**: Replaced standard Netlify redirects and Edge Functions with a dedicated **Node.js Serverless Function** proxy. 
     - **The Core Issue**: The AWS API Gateway backend rigidly requires the exact casing `Content-Type: application/json`. Standard Edge Functions and HTTP/2 normalization force headers to lowercase (`content-type`), which caused AWS Lambda to crash and return `502 Bad Gateway` on POST/PUT requests.
     - **The Fix**: The new Node.js Serverless Function uses the native `https` module to manually construct the request and strictly preserves the HTTP/1.1 title-cased headers, fully resolving the 502 errors for "Save" and "Create" operations.
+- **Strict Form Validations**: Enhanced the `CatFormComponent` with robust user input validations:
+    - **Name**: Requires 2-50 characters. Uses Regex (`/^[a-zA-Z\s]*$/`) to ensure only alphabetical characters and spaces are allowed.
+    - **Age**: Requires a number between 0 and 30. Uses Regex (`/^(0|[1-9]\d*)$/`) to prevent decimals, negative numbers, or non-numeric characters.
+    - **Description**: Requires 1-500 characters.
+    - **UI Feedback**: Added specific error messages to `mat-input` fields for each validation state (e.g. "Name can only contain letters and spaces"). 
 - **CSV Export**: Replaced manual download logic with the robust `file-saver` library and later refined it with a manual anchor-based method to ensure correct filename handling on Mac/Safari. The exported data now includes **Name**, **Age**, and **Description** (removing the internal ID column for a cleaner look).
-- **Header Case Sensitivity**: Explicitly configured headers in both the Angular service and the Netlify Serverless proxy.
 
 
 ## Documentation Assets
