@@ -30,7 +30,7 @@ View comprehensive profiles and diagnostic history for every cat.
 
 ## 🚀 Live Demo
 Experience the application live here:
-**[https://cute-frangollo-a7c776.netlify.app/](https://cute-frangollo-a7c776.netlify.app/)**
+**[https://cat-explorer-4u.netlify.app/](https://cat-explorer-4u.netlify.app/)**
 
 ## 🌐 Deployment
 

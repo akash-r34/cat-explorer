@@ -41,6 +41,12 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 @if (form.get('name')?.hasError('minlength')) {
                   <mat-error>Name must be at least 2 characters</mat-error>
                 }
+                @if (form.get('name')?.hasError('maxlength')) {
+                  <mat-error>Name cannot exceed 50 characters</mat-error>
+                }
+                @if (form.get('name')?.hasError('pattern')) {
+                  <mat-error>Name can only contain letters and spaces</mat-error>
+                }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
@@ -52,6 +58,9 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 @if (form.get('age')?.hasError('min') || form.get('age')?.hasError('max')) {
                   <mat-error>Age must be between 0 and 30</mat-error>
                 }
+                @if (form.get('age')?.hasError('pattern')) {
+                  <mat-error>Age must be a valid whole number</mat-error>
+                }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
@@ -60,7 +69,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
                 @if (form.get('description')?.hasError('required')) {
                   <mat-error>Description is required</mat-error>
                 }
+                @if (form.get('description')?.hasError('maxlength')) {
+                  <mat-error>Description cannot exceed 500 characters</mat-error>
+                }
               </mat-form-field>
+
 
               <div class="form-actions">
                 <button mat-button type="button" (click)="onCancel()" [disabled]="isSaving()">Cancel</button>
@@ -91,9 +104,31 @@ export class CatFormComponent implements OnInit {
   readonly error = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
-    age: ['0', [Validators.required, Validators.min(0), Validators.max(30)]],
-    description: ['', Validators.required],
+    name: [
+      '', 
+      [
+        Validators.required, 
+        Validators.minLength(2), 
+        Validators.maxLength(50),
+        Validators.pattern(/^[a-zA-Z\s]*$/) // Only letters and spaces allowed
+      ]
+    ],
+    age: [
+      '0', 
+      [
+        Validators.required, 
+        Validators.min(0), 
+        Validators.max(30),
+        Validators.pattern(/^(0|[1-9]\d*)$/) // Only positive integers
+      ]
+    ],
+    description: [
+      '', 
+      [
+        Validators.required,
+        Validators.maxLength(500)
+      ]
+    ],
   });
 
   ngOnInit(): void {
