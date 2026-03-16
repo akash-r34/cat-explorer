@@ -198,9 +198,8 @@ export class CatsListComponent implements OnInit {
     const cats = this.filteredCats();
     if (!cats.length) return;
 
-    const headers = ['ID', 'Name', 'Age', 'Description'];
+    const headers = ['Name', 'Age', 'Description'];
     const rows = cats.map(cat => [
-      cat.id,
       `"${cat.info.name.replace(/"/g, '""')}"`,
       cat.info.age,
       `"${(cat.info.description || '').replace(/"/g, '""')}"`
