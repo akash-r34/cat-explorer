@@ -94,8 +94,9 @@ The development server is configured to proxy API requests to bypass CORS and in
 
 ## 🧪 Documentation & Walkthrough
 
-A detailed implementation walkthrough, including verification recordings and screenshots, can be found in the [walkthrough.md](file:///Users/akashr/.gemini/antigravity/brain/6d888b4c-804d-4988-9f70-c4d3ad259eea/walkthrough.md).
+A detailed implementation walkthrough, including verification recordings and screenshots, can be found in the [walkthrough.md](docs/walkthrough.md).
 
 ## 📄 License
 
 This project is licensed under the MIT License.
+
