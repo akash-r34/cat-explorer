@@ -28,12 +28,23 @@ View comprehensive profiles and diagnostic history for every cat.
 ![Details](docs/assets/details.png)
 
 
+## 🚀 Live Demo
+Experience the application live here:
+**[https://cute-frangollo-a7c776.netlify.app/](https://cute-frangollo-a7c776.netlify.app/)**
+
 ## 🌐 Deployment
 
-This application is optimized for deployment on **Netlify**. A `netlify.toml` file is included in the project root to handle:
+This application is optimized for deployment on **Netlify**.
+
+### Build Configuration
+A `netlify.toml` file is included in the project root to handle:
 - Automated builds via `npm run build`
-- API proxying for production (redirecting `/api/*` to the AWS Lambda backend)
-- SPA routing (redirecting all paths to `index.html`)
+- SPA routing rules (redirecting all paths to `index.html`)
+
+### API Proxy (Serverless Function)
+The application includes a custom **Netlify Node.js Serverless Function** (`netlify/functions/api-proxy.ts`) to handle API requests securely and robustly:
+- Proxies `/api/*` requests to the AWS Lambda backend (`https://gps6cdg7h9.execute-api.eu-central-1.amazonaws.com/prod`).
+- **Header Casing Preservation**: The backend explicitly requires title-cased headers (e.g., `Content-Type: application/json`). Standard Netlify redirects and Edge Functions use HTTP/2 which normalizes headers to lowercase, causing the backend to throw a 502 Bad Gateway. This custom Serverless Function uses the native Node `https` module to explicitly preserve the exact header casing required by AWS API Gateway, ensuring flawless `POST` and `PUT` operations.
 
 To deploy, simply connect your GitHub repository to Netlify and it will handle the rest!
 
