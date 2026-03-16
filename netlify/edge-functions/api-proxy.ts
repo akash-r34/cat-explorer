@@ -30,8 +30,9 @@ export default async (request: Request) => {
 
   // Only include body for methods that support it
   if (["POST", "PUT", "PATCH"].includes(request.method)) {
-    // For Edge Functions, we can pass the request body directly
-    options.body = request.body;
+    // Read the body fully to avoid sending 'Transfer-Encoding: chunked'
+    // which AWS API Gateway might reject or fail to handle properly.
+    options.body = await request.text();
   }
 
   try {
