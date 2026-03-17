@@ -36,10 +36,5 @@ Need to share your registry data? Use the **Export CSV** feature located in the 
 - **Professional Format**: Generates a clean CSV file with Name, Age, and Description.
 - **Compatibility**: Optimized for seamless opening in Excel, Google Sheets, or Numbers.
 
-## 🎬 Functional Walkthrough
-Watch the application in action to see the smooth, cinematic transitions and snappy performance:
-
-![Walkthrough](assets/walkthrough.webp)
-
 ---
 *For technical setup instructions and deployment details, please refer to the main [README.md](../README.md).*
